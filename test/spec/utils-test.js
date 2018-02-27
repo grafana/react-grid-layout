@@ -156,11 +156,10 @@ describe("moveElement", () => {
 
   it("Moves elements out of the way without causing panel jumps when compaction is vertical", () => {
     const layout = [
-      { x: 0, y: 0, w: 1, h: 10, moved: false, i: "A" },
-      { x: 0, y: 10, w: 1, h: 1, moved: false, i: "B" },
-      { x: 0, y: 11, w: 1, h: 1, moved: false, i: "C" }
-    ];
-    // move A down slightly so it collides with C; can cause C to jump above B.
+      {x: 0, y: 0,  w: 1,  h: 10, moved: false, i: 'A'},
+      {x: 0, y: 11, w: 10, h: 1,  moved: false, i: 'B'},
+      {x: 0, y: 12, w: 1,  h: 1,  moved: false, i: 'C'},
+    ];    // move A down slightly so it collides with C; can cause C to jump above B.
     // We instead want B to jump above A (it has the room)
     const itemA = layout[0];
     assert.deepEqual(
@@ -168,16 +167,16 @@ describe("moveElement", () => {
         layout,
         itemA,
         0,
-        1, // x, y
+        2, // x, y
         true,
         false, // isUserAction, preventCollision
         "vertical",
         10 // compactType, cols
       ),
       [
-        { x: 0, y: 1, w: 1, h: 10, moved: true, i: "A" },
-        { x: 0, y: 0, w: 1, h: 1, moved: true, i: "B" },
-        { x: 0, y: 11, w: 1, h: 1, moved: false, i: "C" }
+        {x: 0, y: 2,  w: 1,  h: 10, moved: true, i: 'A'},
+        {x: 0, y: 12, w: 10, h: 1,  moved: true, i: 'B'},
+        {x: 0, y: 13, w: 1,  h: 1,  moved: true, i: 'C'},
       ]
     );
   });
